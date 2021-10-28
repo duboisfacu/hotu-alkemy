@@ -153,7 +153,7 @@ const Home = () => {
             Log out
           </button>
           <div className="container page-img">
-            <img src={logo} width="160px" />
+            <img alt="Logo HOTU" src={logo} width="160px" />
           </div>{" "}
           <Link className="btn btn-primary" to="/searcher">
             Add hero
@@ -207,12 +207,13 @@ const Home = () => {
                           <td>{heroe.powerstats.combat}</td>
                           <td className="actions-col">
                             <button
-                            className="btn btn-info "
+                              className="btn btn-info "
                               onClick={() => setActual(heroe)}
                             >
                               Details
                             </button>{" "}
-                            <button className="btn btn-danger "
+                            <button
+                              className="btn btn-danger "
                               onClick={() => Delete(heroe)}
                             >
                               Delete
@@ -247,7 +248,11 @@ const Home = () => {
             </div>
           ) : (
             <div className="container">
-              <img src={ilustration} className="il-home" />
+              <img
+                alt="ilustration groot & rocket list"
+                src={ilustration}
+                className="il-home"
+              />
             </div>
           )}
         </div>

@@ -10,7 +10,11 @@ const Form = () => {
   let history = useHistory();
   return (
     <>
-      <img className="il-login" src={ilus} />
+      <img
+        alt="ilustration groot & rocket login"
+        className="il-login"
+        src={ilus}
+      />
       <Formik
         //al iniciar el formulario, deja en blanco los campos
         initialValues={{
@@ -75,7 +79,7 @@ const Form = () => {
             <div className="col-sm-8 main-section">
               <div className="modal-content">
                 <div className="col-12 page-img">
-                  <img src={logo} width="160px" />
+                  <img alt="logo HOTU" src={logo} width="160px" />
                 </div>
 
                 <form className="col-12" onSubmit={handleSubmit}>

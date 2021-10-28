@@ -16,26 +16,57 @@ const Heroes = () => {
   // team contendra el equipo, iniciando con el equipo traído del localStorage
   const [team = initialValue, setTeam] = useState();
 
-  // bubbles contendra
+  // bubbles contendra los svg de los alignment
   const [bubbles, setBubbles] = useState([]);
+
+  // creacion de los svg estéticos para ver el alignment de los heroes (hecho función para usar diferentes keys)
+  const bubbleBad = (id) => {
+    return (
+      <svg key={id} className="bubble" height="16px" width="16">
+        <circle cx="7" cy="7" r="7" fill="#b81d13" />
+      </svg>
+    );
+  };
+  const bubbleGood = (id) => {
+    return (
+      <svg key={id} className="bubble" height="16px" width="16">
+        <circle cx="7" cy="7" r="7" fill="#008450" />
+      </svg>
+    );
+  };
+
+  const bubbleNeutral = (id) => {
+    return (
+      <svg key={id} className="bubble" height="16px" width="16">
+        <circle cx="7" cy="7" r="7" fill="#efb700" />
+      </svg>
+    );
+  };
 
   //seteo el equipo actual
   useEffect(() => {
     setTeam(JSON.parse(localStorage.getItem("team")));
-    // seteo de los svg de alignment del equipo
-    for (let i in initialValue) {
-      if (initialValue[i].biography.alignment === "bad") {
-        setBubbles((prevArray) => [...prevArray, bubbleBad]);
-      } else if (initialValue[i].biography.alignment === "good") {
-        setBubbles((prevArray) => [...prevArray, bubbleGood]);
-      } else {
-        setBubbles((prevArray) => [...prevArray, bubbleNeutral]);
-      }
-    }
   }, []);
 
   //se sube al localStorage el equipo
   localStorage.setItem("team", JSON.stringify(team));
+
+  useEffect(() => {
+    // se pasa el equipo de parametro
+    const getBubble = (iVal) => {
+      // por cada heroe en el equipo asigna el svg dependiendo de la orientación
+      for (let i in iVal) {
+        if (iVal[i].biography.alignment === "bad") {
+          setBubbles((prevArray) => [...prevArray, bubbleBad(iVal[i].id)]);
+        } else if (iVal[i].biography.alignment === "good") {
+          setBubbles((prevArray) => [...prevArray, bubbleGood(iVal[i].id)]);
+        } else {
+          setBubbles((prevArray) => [...prevArray, bubbleNeutral(iVal[i].id)]);
+        }
+      }
+    };
+    getBubble(JSON.parse(localStorage.getItem("team")));
+  }, []);
 
   // history instanciado para redirigir al login en caso de cerrar sesión
   const history = useHistory();
@@ -44,24 +75,6 @@ const Heroes = () => {
     localStorage.clear();
     history.push("/login");
   };
-
-  // creacion de los svg estéticos para ver el alignment de los heroes
-  let bubbleBad = (
-    <svg className="bubble" height="16px" width="16">
-      <circle cx="7" cy="7" r="7" fill="#b81d13" />
-    </svg>
-  );
-  let bubbleGood = (
-    <svg className="bubble" height="16px" width="16">
-      <circle cx="7" cy="7" r="7" fill="#008450" />
-    </svg>
-  );
-
-  let bubbleNeutral = (
-    <svg className="bubble" height="16px" width="16">
-      <circle cx="7" cy="7" r="7" fill="#efb700" />
-    </svg>
-  );
 
   // al presionar el boton de agregar carga esta función
   const Load = (heroe) => {
@@ -82,16 +95,16 @@ const Heroes = () => {
         // (si es neutral o no está definido no va a tener limitación a la hora de agregarlo)
         if (heroe.biography.alignment === "good" && contGood < 3) {
           setTeam((prevArray) => [...prevArray, heroe]);
-          setBubbles((prevArray) => [...prevArray, bubbleGood]);
+          setBubbles((prevArray) => [...prevArray, bubbleGood(heroe.id)]);
         } else if (heroe.biography.alignment === "bad" && contBad < 3) {
           setTeam((prevArray) => [...prevArray, heroe]);
-          setBubbles((prevArray) => [...prevArray, bubbleBad]);
+          setBubbles((prevArray) => [...prevArray, bubbleBad(heroe.id)]);
         } else if (
           heroe.biography.alignment === "neutral" ||
           heroe.biography.alignment === "-"
         ) {
           setTeam((prevArray) => [...prevArray, heroe]);
-          setBubbles((prevArray) => [...prevArray, bubbleNeutral]);
+          setBubbles((prevArray) => [...prevArray, bubbleNeutral(heroe.id)]);
         }
       }
     }
@@ -108,7 +121,7 @@ const Heroes = () => {
       </Link>
       <div className="container-sm text-center">
         <div className="container page-img">
-          <img src={logo} width="160px" />
+          <img alt="logo HOTU" src={logo} width="160px" />
         </div>
         <Formik
           // el searchbar inicia vacío
@@ -245,11 +258,19 @@ const Heroes = () => {
       ) : // de lo contrario a lo anterior y con "error" y longitud de error mayor a 0, muestra img de error
       !(heroes && heroes.length > 0) && error && error.length > 0 ? (
         <div className="container text-center">
-          <img src={ilustrationError} className="il-search" />
+          <img
+            alt="ilustration groot & rocket search error"
+            src={ilustrationError}
+            className="il-search"
+          />
         </div>
       ) : (
         <div className="container text-center">
-          <img src={ilustration} className="il-search" />
+          <img
+            alt="ilustration groot & rocket search empty"
+            src={ilustration}
+            className="il-search"
+          />
         </div>
       )}
     </>
