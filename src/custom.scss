@@ -5,9 +5,10 @@ $info: #d0b18a;
 $danger: #973424;
 $warning: #582c25;
 @import "~bootstrap/scss/bootstrap.scss";
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 body {
   background-color: #fbb53b;
+  font-family: "Nunito", sans-serif;
 }
 
 .main-section {
@@ -113,7 +114,7 @@ body {
 
 .searchbar {
   width: 25vw;
-  min-width: 280px;
+  min-width: 320px;
   margin-bottom: 20px;
 }
 
