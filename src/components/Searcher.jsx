@@ -261,7 +261,7 @@ const Heroes = () => {
           <img
             alt="ilustration groot & rocket search error"
             src={ilustrationError}
-            className="il-search"
+            className="il-search il-error"
           />
         </div>
       ) : (
