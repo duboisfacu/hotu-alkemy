@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Container } from "reactstrap";
 import { Link, useHistory } from "react-router-dom";
 import Details from "./Details";
 import logo from "../resources/logo.png";
@@ -162,9 +161,9 @@ const Home = () => {
           {/* si el equipo tiene heroes muestra la tabla con los heroes */}
           {team.length > 0 ? (
             <div>
-              <Container>
+              <div>
                 <div className="table-responsive">
-                  <Table className="table table-hover table-primary table bdr">
+                  <table className="table table-hover table-primary table bdr">
                     <thead>
                       <tr>
                         <th className="title-table" colSpan="10">
@@ -207,18 +206,17 @@ const Home = () => {
                           <td>{heroe.powerstats.power}</td>
                           <td>{heroe.powerstats.combat}</td>
                           <td className="actions-col">
-                            <Button
-                              color="info"
+                            <button
+                            className="btn btn-info "
                               onClick={() => setActual(heroe)}
                             >
                               Details
-                            </Button>{" "}
-                            <Button
-                              color="danger"
+                            </button>{" "}
+                            <button className="btn btn-danger "
                               onClick={() => Delete(heroe)}
                             >
                               Delete
-                            </Button>
+                            </button>
                           </td>
                         </tr>
                       ))}
@@ -239,9 +237,9 @@ const Home = () => {
                         <></>
                       )}
                     </tbody>
-                  </Table>
+                  </table>
                 </div>
-              </Container>
+              </div>
               {/* si se presiona un botón de detalles de cualquier heroe, "actual" tendría el valor del heroe presionado*/}
               {/* actual es pasado como prop al componente hijo, si no hay actual, no se muestra el detalle (tambien se pasa 
                 la función handleCallback para poder modificar el valor del componente padre desde el componente hijo) */}
