@@ -42,7 +42,8 @@ const Home = () => {
   const suma = () => {
     let mayor = 0;
     let mayorStat = "";
-    let count = 0;
+    let countKG = 0;
+    let countCM = 0;
     let sumKG = 0;
     let sumCM = 0;
     let promKG;
@@ -94,20 +95,25 @@ const Home = () => {
         let cm = JSON.parse(localStorage.getItem("team"))[key].appearance
           .height[1];
 
-        // se cuentan los heroes
-        count += 1;
-
         // se sacan los ultimos 2 caracteres de los strings (cm/kg) para poder sumarlos como int
         let kg2 = parseInt(kg.substring(0, kg.length - 2));
         let cm2 = parseInt(cm.substring(0, cm.length - 2));
 
+        if (kg2 !== 0) {
+          // se cuentan los heroes que tengan valor en kg
+          countKG += 1;
+        }
+        if (cm2 !== 0) {
+          // se cuentan los heroes que tengan valor en cm
+          countCM += 1;
+        }
         // se suman
         sumKG += kg2;
         sumCM += cm2;
       }
       // se saca el promedio dividiendo la suma total por la cantidad de heroes
-      promKG = Math.trunc(sumKG / count);
-      promCM = Math.trunc(sumCM / count);
+      promKG = Math.trunc(sumKG / countKG);
+      promCM = Math.trunc(sumCM / countCM);
     }
 
     // se setean: el peso, la altura y el tipo (mayor powerstat)
